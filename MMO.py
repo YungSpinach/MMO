@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[35]:
+# In[1]:
 
 
 import numpy as np
 import pandas as pd
-import scipy
 from scipy.interpolate import interp1d
 
 # ====================
@@ -32,7 +31,7 @@ cover_curves_df = cover_curves_df.merge(
 )
 
 
-# In[41]:
+# In[12]:
 
 
 # Calculate Media Investment
@@ -64,32 +63,32 @@ for _, row in media_effectiveness_df.iterrows():
     }
 
 # Total budget
-total_budget = 2000000  # $1,000,000
+total_budget = 500000  # $1,000,000
 
 # Marketing objective (e.g., "Salience", "Unaided Awareness", etc.)
-marketing_objective = "Association"  # User-defined marketing objective
+marketing_objective = "Consideration"  # User-defined marketing objective
 
 # Constraints
 frequency_cap = 10  # Max frequency per channel
 budget_caps = {channel: 0.3 for channel in cover_curves}  # Max % of total budget per channel (example: 20%)
 
 
-# In[37]:
+# In[13]:
 
 
 # Weights for scoring criteria (based on marketing objective)
 if marketing_objective in ["Salience", "Unaided Awareness", "Aided Awareness", "Association", "Consideration", "Purchase Intent"]:
     weights = {
-        "Short-Term ROI": 0.25,
-        "Full ROI": 0.25,
-        "Attention": 0.25,
-        "Suitability": 0.25,  # Suitability weight depends on the marketing objective
+        "Short-Term ROI": 0.1,
+        "Full ROI": 0.2,
+        "Attention": 0.3,
+        "Suitability": 0.4,  # Suitability weight depends on the marketing objective
     }
 else:
     raise ValueError("Invalid marketing objective. Choose from: Salience, Unaided Awareness, Aided Awareness, Association, Consideration, Purchase Intent.")
 
 
-# In[38]:
+# In[4]:
 
 
 # ====================
@@ -103,13 +102,15 @@ def calculate_score(channel, allocated_budget):
     cover = cover_curves[channel]["Cover %"]
     frequency = cover_curves[channel]["Avg. Frequency"]
     
+    # Create interpolation functions
     cover_interp = interp1d(investment, cover, fill_value="extrapolate")
     frequency_interp = interp1d(investment, frequency, fill_value="extrapolate")
     
+    # Calculate cover percentage and average frequency for the allocated budget
     cover_pct = cover_interp(allocated_budget)
     avg_frequency = frequency_interp(allocated_budget)
     
-    # Calculate GRPs
+    # Calculate GRPs (Gross Rating Points)
     grps = cover_pct * avg_frequency
     
     # Get effectiveness coefficients
@@ -117,41 +118,51 @@ def calculate_score(channel, allocated_budget):
     full_roi = media_effectiveness[channel]["Full ROI"]
     attention = media_effectiveness[channel]["Attention"]
     suitability = media_effectiveness[channel][marketing_objective]  # Suitability depends on the marketing objective
-
+    
     # Normalize coefficients to a range of 0 to 1
     def normalize(value, min_value, max_value):
         return (value - min_value) / (max_value - min_value)
-
+    
     # Calculate min and max values for each coefficient
     short_term_roi_min = min([media_effectiveness[ch]["Short-Term ROI"] for ch in media_effectiveness])
     short_term_roi_max = max([media_effectiveness[ch]["Short-Term ROI"] for ch in media_effectiveness])
-
+    
     full_roi_min = min([media_effectiveness[ch]["Full ROI"] for ch in media_effectiveness])
     full_roi_max = max([media_effectiveness[ch]["Full ROI"] for ch in media_effectiveness])
-
+    
     attention_min = min([media_effectiveness[ch]["Attention"] for ch in media_effectiveness])
     attention_max = max([media_effectiveness[ch]["Attention"] for ch in media_effectiveness])
-
+    
     suitability_min = min([media_effectiveness[ch][marketing_objective] for ch in media_effectiveness])
     suitability_max = max([media_effectiveness[ch][marketing_objective] for ch in media_effectiveness])
-
+    
     # Normalize the coefficients
     short_term_roi_norm = normalize(short_term_roi, short_term_roi_min, short_term_roi_max)
     full_roi_norm = normalize(full_roi, full_roi_min, full_roi_max)
     attention_norm = normalize(attention, attention_min, attention_max)
     suitability_norm = normalize(suitability, suitability_min, suitability_max)
-
-    # Calculate score using normalized coefficients
-    score = (
+    
+    # Calculate the weighted sum of normalized coefficients
+    weighted_sum = (
         weights["Short-Term ROI"] * short_term_roi_norm +
         weights["Full ROI"] * full_roi_norm +
         weights["Attention"] * attention_norm +
         weights["Suitability"] * suitability_norm
     )
+    
+    # Calculate incremental cover percentage for an additional 5% investment
+    incremental_budget = 0.05 * total_budget
+    new_allocated_budget = allocated_budget + incremental_budget
+    new_cover_pct = cover_interp(new_allocated_budget)
+    incremental_cover_pct = new_cover_pct - cover_pct
+    
+    # Multiply the weighted sum by the incremental cover percentage
+    score = weighted_sum * incremental_cover_pct
+    
     return score, cover_pct, avg_frequency, grps
 
 
-# In[39]:
+# In[5]:
 
 
 def allocate_budget(total_budget, budget_caps, frequency_cap):
@@ -191,7 +202,7 @@ def allocate_budget(total_budget, budget_caps, frequency_cap):
     return allocation
 
 
-# In[43]:
+# In[14]:
 
 
 # ====================
@@ -219,7 +230,7 @@ output_df = pd.DataFrame(output_table)
 print(output_df)
 
 
-# In[44]:
+# In[9]:
 
 
 #Exporting the table
