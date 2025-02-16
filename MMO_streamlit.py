@@ -221,6 +221,12 @@ for channel, budget in allocation.items():
 
 output_df = pd.DataFrame(output_table)
 
+
+
+# ====================
+# Show Results
+# ====================
+
 st.write("### Results")
 st.dataframe(output_df, hide_index=True,)
 
