@@ -251,13 +251,9 @@ for i, v in enumerate(output_df["Cover (%)"]):
 
 # Line graph for Avg. Frequency
 ax2 = ax1.twinx()
-ax2.plot(output_df["Media Channel"], output_df["Avg. Frequency"], color='darkslategray', marker='o', markersize=10)
+ax2.plot(output_df["Media Channel"], output_df["Avg. Frequency"], color='darkslategray', marker='o', markersize=30)
 ax2.set_ylabel("Avg. Frequency", fontsize=14, fontweight='bold')
 ax2.tick_params(axis='y')
-
-# Add data labels for Avg. Frequency
-for i, v in enumerate(output_df["Avg. Frequency"]):
-    ax2.text(i, v + 0.1, f"{v}", ha='center', va='bottom', fontsize=10, fontweight='bold')
 
 # Title and layout adjustments
 plt.title("Channel Reach and Avg. Frequencies", fontsize=20, fontweight='bold')
