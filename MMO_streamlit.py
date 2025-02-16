@@ -237,13 +237,16 @@ st.text("")
 # import csv
 
 # ====================
-# R+F Graphs
+# R+F Graph
 # ====================
 
 fig, ax1 = plt.subplots(figsize=(10, 6))
 
+# Sort the output dataframe by Cover (%) in descending order
+output_df = output_df.sort_values(by="Cover (%)", ascending=False)
+
 # Bar graph for Cover %
-ax1.bar(output_df["Media Channel"], output_df["Cover (%)"], color='moccasin', alpha=0.6)
+ax1.bar(output_df["Media Channel"], output_df["Cover (%)"], color='orangered', alpha=0.6)
 ax1.set_xlabel("Media Channel")
 ax1.set_ylabel("Cover (%)", fontsize=14, fontweight='bold')
 ax1.tick_params(axis='y')
@@ -254,7 +257,7 @@ for i, v in enumerate(output_df["Cover (%)"]):
 
 # Line graph for Avg. Frequency
 ax2 = ax1.twinx()
-ax2.plot(output_df["Media Channel"], output_df["Avg. Frequency"], color='darkslategray', marker='o', markersize=30)
+ax2.plot(output_df["Media Channel"], output_df["Avg. Frequency"], color='mediumpurple', marker='o', markersize=30)
 ax2.set_ylabel("Avg. Frequency", fontsize=14, fontweight='bold')
 ax2.tick_params(axis='y')
 
