@@ -6,10 +6,11 @@ import matplotlib.pyplot as plt
 
 
 st.title("Media Mix Optimiser")
+st.text("")
 st.write("### Input Parameters")
 col1, col2 = st.columns(2)
 audience_name = col1.selectbox("Audience Name", ["ABC1 Adults", "All Adults", "1834 Women", "ABC1 Women"])
-total_budget = col2.number_input("Total Budget", min_value=0, value=500000)
+total_budget = col2.number_input("Total Budget (£)", min_value=0, value=500000, format="£%d")
 marketing_objective = col1.selectbox("Marketing Objective", ["Salience", "Unaided Awareness", "Aided Awareness", "Association", "Consideration", "Purchase Intent"])
 frequency_cap = col2.number_input("Frequency Cap", min_value=0, value=10)
 
@@ -227,8 +228,10 @@ output_df = pd.DataFrame(output_table)
 # Show Results
 # ====================
 
+st.text("")
 st.write("### Results")
 st.dataframe(output_df, hide_index=True, use_container_width=True)
+st.text("")
 
 #Exporting the table
 # import csv
@@ -266,6 +269,8 @@ st.pyplot(fig)
 # ====================
 # Cover Curve Graph
 # ====================
+
+st.text("")
 
 # Plot Cover % by Investment for each channel
 fig2, ax = plt.subplots(figsize=(10, 6))
