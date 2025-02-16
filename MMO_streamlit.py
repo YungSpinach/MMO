@@ -240,16 +240,24 @@ st.dataframe(output_df, hide_index=True,)
 fig, ax1 = plt.subplots(figsize=(10, 6))
 
 # Bar graph for Cover %
-ax1.bar(output_df["Media Channel"], output_df["Cover (%)"], color='b', alpha=0.6)
+ax1.bar(output_df["Media Channel"], output_df["Cover (%)"], color='moccasin', alpha=0.6)
 ax1.set_xlabel("Media Channel")
 ax1.set_ylabel("Cover (%)", fontsize=14, fontweight='bold')
 ax1.tick_params(axis='y')
 
+# Add data labels
+for i, v in enumerate(output_df["Cover (%)"]):
+    ax1.text(i, v - 5, f"{v}%", ha='center', va='bottom', fontsize=10, fontweight='bold')
+
 # Line graph for Avg. Frequency
 ax2 = ax1.twinx()
-ax2.plot(output_df["Media Channel"], output_df["Avg. Frequency"], color='r', marker='o')
+ax2.plot(output_df["Media Channel"], output_df["Avg. Frequency"], color='darkslategray', marker='o', markersize=10)
 ax2.set_ylabel("Avg. Frequency", fontsize=14, fontweight='bold')
 ax2.tick_params(axis='y')
+
+# Add data labels for Avg. Frequency
+for i, v in enumerate(output_df["Avg. Frequency"]):
+    ax2.text(i, v + 0.1, f"{v}", ha='center', va='bottom', fontsize=10, fontweight='bold')
 
 # Title and layout adjustments
 plt.title("Channel Reach and Avg. Frequencies", fontsize=20, fontweight='bold')
