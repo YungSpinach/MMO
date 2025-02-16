@@ -296,6 +296,9 @@ for idx, (channel, data) in enumerate(cover_curves.items()):
 # Set x-axis limit
 ax.set_xlim(0, total_budget / 2.5)
 
+# Set y-axis limit
+ax.set_ylim(0, 60)
+
 # Increase font size and make axis titles bold
 ax.set_xlabel("Investment (£)", fontsize=14, fontweight='bold')
 ax.set_ylabel("Cover %", fontsize=14, fontweight='bold')
