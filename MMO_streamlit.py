@@ -1,19 +1,23 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import numpy as np
 import pandas as pd
 from scipy.interpolate import interp1d
+import streamlit as st
+
+
+st.title("Media Mix Optimiser")
+st.write("### Input Parameters")
+col1, col2 = st.columns(2)
+audience_name = col1.text_input("Audience Name", "ABC1 Adults")
+total_budget = col2.number_input("Total Budget", min_value=0, value=500000)
+marketing_objective = col1.selectbox("Marketing Objective", ["Salience", "Unaided Awareness", "Aided Awareness", "Association", "Consideration", "Purchase Intent"])
+frequency_cap = col2.number_input("Frequency Cap", min_value=0, value=10)
 
 # ====================
 # Input Data
 # ====================
 
 # Set the target audience
-audience_name = "ABC1 Adults"  # User-defined audience name
+# audience_name = "ABC1 Adults"  # User-defined audience name
 
 # Read cover curves data
 cover_curves_df = pd.read_csv("cover_curves.csv")
@@ -30,8 +34,6 @@ cover_curves_df = cover_curves_df.merge(
     how="left"
 )
 
-
-# In[12]:
 
 
 # Calculate Media Investment
@@ -63,17 +65,15 @@ for _, row in media_effectiveness_df.iterrows():
     }
 
 # Total budget
-total_budget = 500000  # $1,000,000
+# total_budget = 500000  # $1,000,000
 
 # Marketing objective (e.g., "Salience", "Unaided Awareness", etc.)
-marketing_objective = "Consideration"  # User-defined marketing objective
+# marketing_objective = "Consideration"  # User-defined marketing objective
 
 # Constraints
-frequency_cap = 10  # Max frequency per channel
+# frequency_cap = 10  # Max frequency per channel
 budget_caps = {channel: 0.3 for channel in cover_curves}  # Max % of total budget per channel (example: 20%)
 
-
-# In[13]:
 
 
 # Weights for scoring criteria (based on marketing objective)
@@ -86,10 +86,6 @@ if marketing_objective in ["Salience", "Unaided Awareness", "Aided Awareness", "
     }
 else:
     raise ValueError("Invalid marketing objective. Choose from: Salience, Unaided Awareness, Aided Awareness, Association, Consideration, Purchase Intent.")
-
-
-# In[4]:
-
 
 # ====================
 # Helper Functions
@@ -161,10 +157,6 @@ def calculate_score(channel, allocated_budget):
     
     return score, cover_pct, avg_frequency, grps
 
-
-# In[5]:
-
-
 def allocate_budget(total_budget, budget_caps, frequency_cap):
     """Allocate budget across channels iteratively."""
     allocation = {channel: 0 for channel in cover_curves}
@@ -201,10 +193,6 @@ def allocate_budget(total_budget, budget_caps, frequency_cap):
     
     return allocation
 
-
-# In[14]:
-
-
 # ====================
 # Run the Algorithm
 # ====================
@@ -227,20 +215,7 @@ for channel, budget in allocation.items():
         })
 
 output_df = pd.DataFrame(output_table)
-print(output_df)
-
-
-# In[9]:
-
+st.dataframe(output_df)
 
 #Exporting the table
-
-import csv
-output_df.to_csv('output_df.csv')
-
-
-# In[ ]:
-
-
-
-
+# import csv
