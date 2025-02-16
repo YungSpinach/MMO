@@ -257,7 +257,7 @@ for i, v in enumerate(output_df["Cover (%)"]):
 
 # Line graph for Avg. Frequency
 ax2 = ax1.twinx()
-ax2.plot(output_df["Media Channel"], output_df["Avg. Frequency"], color='mediumpurple', marker='o', markersize=30)
+ax2.plot(output_df["Media Channel"], output_df["Avg. Frequency"], color='mediumpurple', marker='o', markersize=30, alpha=0.5)
 ax2.set_ylabel("Avg. Frequency", fontsize=14, fontweight='bold')
 ax2.tick_params(axis='y')
 
@@ -276,7 +276,7 @@ st.pyplot(fig)
 st.text("")
 
 # Plot Cover % by Investment for each channel
-fig2, ax = plt.subplots(figsize=(10, 6))
+fig2, ax = plt.subplots(figsize=(8, 8))
 
 # Define colors for each channel
 colors = plt.cm.get_cmap('tab10', len(cover_curves))
@@ -294,7 +294,7 @@ for idx, (channel, data) in enumerate(cover_curves.items()):
         ax.plot(allocation[channel], current_cover_pct, 'o', color=colors(idx), markersize=8)
 
 # Set x-axis limit
-ax.set_xlim(0, total_budget / 2)
+ax.set_xlim(0, total_budget / 1.5)
 
 # Increase font size and make axis titles bold
 ax.set_xlabel("Investment (£)", fontsize=14, fontweight='bold')
