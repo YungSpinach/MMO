@@ -87,6 +87,8 @@ if marketing_objective in ["Salience", "Unaided Awareness", "Aided Awareness", "
 else:
     raise ValueError("Invalid marketing objective. Choose from: Salience, Unaided Awareness, Aided Awareness, Association, Consideration, Purchase Intent.")
 
+
+
 # ====================
 # Helper Functions
 # ====================
@@ -193,6 +195,8 @@ def allocate_budget(total_budget, budget_caps, frequency_cap):
     
     return allocation
 
+
+
 # ====================
 # Run the Algorithm
 # ====================
@@ -207,15 +211,15 @@ for channel, budget in allocation.items():
         score, cover_pct, avg_frequency, grps = calculate_score(channel, budget)
         output_table.append({
             "Media Channel": channel,
-            "Budget Allocation (%)": (budget / total_budget) * 100,
-            "CPM ($)": cover_curves[channel]["CPM"],
-            "Cover (%)": cover_pct,
-            "Avg. Frequency": avg_frequency,
-            "GRPs": grps,
+            "Budget Allocation (£)": budget,
+            "CPM (£)": cover_curves[channel]["CPM"],
+            "Cover (%)": round(cover_pct, 1),
+            "Avg. Frequency": round(avg_frequency, 1),
+            "GRPs": round(grps, 1),
         })
 
 output_df = pd.DataFrame(output_table)
-st.dataframe(output_df)
+st.dataframe(output_df, hide_index=True,)
 
 #Exporting the table
 # import csv
