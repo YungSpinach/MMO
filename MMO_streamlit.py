@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from scipy.interpolate import interp1d
 import streamlit as st
+import matplotlib.pyplot as plt
 
 
 st.title("Media Mix Optimiser")
@@ -225,3 +226,24 @@ st.dataframe(output_df, hide_index=True,)
 
 #Exporting the table
 # import csv
+
+fig, ax1 = plt.subplots(figsize=(10, 6))
+
+# Bar graph for Cover %
+ax1.bar(output_df["Media Channel"], output_df["Cover (%)"], color='b', alpha=0.6)
+ax1.set_xlabel("Media Channel")
+ax1.set_ylabel("Cover (%)", color='b')
+ax1.tick_params(axis='y', labelcolor='b')
+
+# Line graph for Avg. Frequency
+ax2 = ax1.twinx()
+ax2.plot(output_df["Media Channel"], output_df["Avg. Frequency"], color='r', marker='o')
+ax2.set_ylabel("Avg. Frequency", color='r')
+ax2.tick_params(axis='y', labelcolor='r')
+
+# Title and layout adjustments
+plt.title("Cover % and Avg. Frequency by Media Channel")
+fig.tight_layout()
+
+# Display the plot in Streamlit
+st.pyplot(fig)
