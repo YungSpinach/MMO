@@ -7,7 +7,7 @@ import streamlit as st
 st.title("Media Mix Optimiser")
 st.write("### Input Parameters")
 col1, col2 = st.columns(2)
-audience_name = col1.text_input("Audience Name", "ABC1 Adults")
+audience_name = col1.selectbox("Audience Name", ["ABC1 Adults", "All Adults", "1834 Women", "ABC1 Women"])
 total_budget = col2.number_input("Total Budget", min_value=0, value=500000)
 marketing_objective = col1.selectbox("Marketing Objective", ["Salience", "Unaided Awareness", "Aided Awareness", "Association", "Consideration", "Purchase Intent"])
 frequency_cap = col2.number_input("Frequency Cap", min_value=0, value=10)
