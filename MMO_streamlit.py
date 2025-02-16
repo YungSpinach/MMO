@@ -253,3 +253,30 @@ fig.tight_layout()
 
 # Display the plot in Streamlit
 st.pyplot(fig)
+
+# Plot Cover % by Investment for each channel
+fig2, ax = plt.subplots(figsize=(10, 6))
+
+# Define colors for each channel
+colors = plt.cm.get_cmap('tab10', len(cover_curves))
+
+for idx, (channel, data) in enumerate(cover_curves.items()):
+    investment = data["Media Investment"]
+    cover_pct = data["Cover %"]
+    
+    # Plot the cover curve
+    ax.plot(investment, cover_pct, label=channel, color=colors(idx))
+    
+    # Overlay the current budget allocation
+    if allocation[channel] > 0:
+        current_cover_pct = interp1d(investment, cover_pct, fill_value="extrapolate")(allocation[channel])
+        ax.plot(allocation[channel], current_cover_pct, 'o', color=colors(idx), markersize=8)
+
+ax.set_xlabel("Investment (£)")
+ax.set_ylabel("Cover %")
+ax.set_title("Cover % by Investment for Each Media Channel")
+ax.legend()
+ax.grid(True)
+
+# Display the plot in Streamlit
+st.pyplot(fig2)
