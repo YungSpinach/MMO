@@ -233,26 +233,35 @@ st.dataframe(output_df, hide_index=True,)
 #Exporting the table
 # import csv
 
+# ====================
+# R+F Graphs
+# ====================
+
 fig, ax1 = plt.subplots(figsize=(10, 6))
 
 # Bar graph for Cover %
 ax1.bar(output_df["Media Channel"], output_df["Cover (%)"], color='b', alpha=0.6)
 ax1.set_xlabel("Media Channel")
-ax1.set_ylabel("Cover (%)", color='b')
+ax1.set_ylabel("Cover (%)", fontsize=14, fontweight='bold')
 ax1.tick_params(axis='y', labelcolor='b')
 
 # Line graph for Avg. Frequency
 ax2 = ax1.twinx()
 ax2.plot(output_df["Media Channel"], output_df["Avg. Frequency"], color='r', marker='o')
-ax2.set_ylabel("Avg. Frequency", color='r')
+ax2.set_ylabel("Avg. Frequency", fontsize=14, fontweight='bold')
 ax2.tick_params(axis='y', labelcolor='r')
 
 # Title and layout adjustments
-plt.title("Cover % and Avg. Frequency by Media Channel")
+plt.title("Channel Reach and Avg. Frequencies", fontsize=20, fontweight='bold')
 fig.tight_layout()
 
 # Display the plot in Streamlit
 st.pyplot(fig)
+
+
+# ====================
+# Cover Curve Graph
+# ====================
 
 # Plot Cover % by Investment for each channel
 fig2, ax = plt.subplots(figsize=(10, 6))
@@ -272,9 +281,16 @@ for idx, (channel, data) in enumerate(cover_curves.items()):
         current_cover_pct = interp1d(investment, cover_pct, fill_value="extrapolate")(allocation[channel])
         ax.plot(allocation[channel], current_cover_pct, 'o', color=colors(idx), markersize=8)
 
-ax.set_xlabel("Investment (£)")
-ax.set_ylabel("Cover %")
-ax.set_title("Cover % by Investment for Each Media Channel")
+# Set x-axis limit
+ax.set_xlim(0, total_budget / 2)
+
+# Increase font size and make axis titles bold
+ax.set_xlabel("Investment (£)", fontsize=14, fontweight='bold')
+ax.set_ylabel("Cover %", fontsize=14, fontweight='bold')
+
+# Increase font size and make chart title bold
+ax.set_title("Channel Cover Curves, dots indicate current recommended spend level", fontsize=20, fontweight='bold')
+
 ax.legend()
 ax.grid(True)
 
