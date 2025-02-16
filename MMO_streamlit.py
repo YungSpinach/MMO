@@ -211,14 +211,16 @@ for channel, budget in allocation.items():
         score, cover_pct, avg_frequency, grps = calculate_score(channel, budget)
         output_table.append({
             "Media Channel": channel,
-            "Budget Allocation (£)": budget,
-            "CPM (£)": cover_curves[channel]["CPM"],
+            "Budget Allocation (£)": f"£{budget:,.0f}",
+            "CPM (£)": f"£{cover_curves[channel]['CPM']:,.0f}",
             "Cover (%)": np.round(cover_pct, 1),
             "Avg. Frequency": np.round(avg_frequency, 1),
             "GRPs": np.round(grps, 1),
         })
 
 output_df = pd.DataFrame(output_table)
+
+st.write("### Results")
 st.dataframe(output_df, hide_index=True,)
 
 #Exporting the table
