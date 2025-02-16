@@ -213,9 +213,9 @@ for channel, budget in allocation.items():
             "Media Channel": channel,
             "Budget Allocation (£)": budget,
             "CPM (£)": cover_curves[channel]["CPM"],
-            "Cover (%)": round(cover_pct, 1),
-            "Avg. Frequency": round(avg_frequency, 1),
-            "GRPs": round(grps, 1),
+            "Cover (%)": np.round(cover_pct, 1),
+            "Avg. Frequency": np.round(avg_frequency, 1),
+            "GRPs": np.round(grps, 1),
         })
 
 output_df = pd.DataFrame(output_table)
