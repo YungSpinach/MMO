@@ -228,7 +228,7 @@ output_df = pd.DataFrame(output_table)
 # ====================
 
 st.write("### Results")
-st.dataframe(output_df, hide_index=True, use_container_width=True)
+st.dataframe(output_df.style.set_properties(**{'text-align': 'center'}), hide_index=True, use_container_width=True)
 
 #Exporting the table
 # import csv
