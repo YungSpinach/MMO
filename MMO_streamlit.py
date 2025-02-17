@@ -331,7 +331,7 @@ col1.bar_chart(media_effectiveness_df, x="Media Channel", y="Short-Term ROI", ho
 
 # Full ROIs
 col2.text("Full ROIs by Channel")
-col2.bar_chart(media_effectiveness_df, x="Media Channel", y="Full ROI", uhorizontal=True)
+col2.bar_chart(media_effectiveness_df, x="Media Channel", y="Full ROI", horizontal=True)
 
 # Attention
 col1.text("Attention by Channel")
