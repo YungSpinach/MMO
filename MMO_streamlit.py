@@ -7,12 +7,11 @@ import matplotlib.pyplot as plt
 
 st.title("Media Mix Optimiser")
 st.text("")
-st.write("### Input Parameters")
+st.write("### Input Parameters - required")
 col1, col2 = st.columns(2)
 audience_name = col1.selectbox("Audience Name", ["ABC1 Adults", "All Adults", "1834 Women", "ABC1 Women"])
 total_budget = col2.number_input("Total Budget (£)", min_value=0, value=500000)
 marketing_objective = col1.selectbox("Marketing Objective", ["Salience", "Unaided Awareness", "Aided Awareness", "Association", "Consideration", "Purchase Intent"])
-frequency_cap = col2.number_input("Frequency Cap", min_value=0, value=10)
 
 # ====================
 # Input Data
@@ -77,17 +76,18 @@ for _, row in media_effectiveness_df.iterrows():
 budget_caps = {channel: 0.3 for channel in cover_curves}  # Max % of total budget per channel (example: 20%)
 
 
+st.text("")
+st.write("### Input Parameters - optional")
+frequency_cap = st.number_input("Frequency Cap", min_value=0, value=10)
 
 # Weights for scoring criteria (based on marketing objective)
-if marketing_objective in ["Salience", "Unaided Awareness", "Aided Awareness", "Association", "Consideration", "Purchase Intent"]:
-    weights = {
-        "Short-Term ROI": 0.1,
-        "Full ROI": 0.2,
-        "Attention": 0.3,
-        "Suitability": 0.4,  # Suitability weight depends on the marketing objective
-    }
-else:
-    raise ValueError("Invalid marketing objective. Choose from: Salience, Unaided Awareness, Aided Awareness, Association, Consideration, Purchase Intent.")
+st.write("### Weights for Scoring Criteria")
+weights = {
+    "Short-Term ROI": st.slider("Short-Term ROI Weight", min_value=0.0, max_value=1.0, value=0.1),
+    "Full ROI": st.slider("Full ROI Weight", min_value=0.0, max_value=1.0, value=0.2),
+    "Attention": st.slider("Attention Weight", min_value=0.0, max_value=1.0, value=0.3),
+    "Suitability": st.slider(f"{marketing_objective} Weight", min_value=0.0, max_value=1.0, value=0.4),
+}
 
 
 # ====================
