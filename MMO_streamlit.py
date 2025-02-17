@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 st.title("Media Mix Optimiser :gear:")
 st.text("")
-st.write("### Input Parameters - required")
+st.write("### Input Parameters - required :pencil:")
 col1, col2 = st.columns(2)
 audience_name = col1.selectbox("Audience Name", ["ABC1 Adults", "All Adults", "1834 Women", "ABC1 Women"])
 total_budget = col2.number_input("Total Budget (£)", min_value=0, value=500000)
@@ -78,7 +78,7 @@ budget_caps = {channel: 0.3 for channel in cover_curves}  # Max % of total budge
 
 st.text("")
 st.text("")
-st.write("### Input Parameters - optional")
+st.write("### Input Parameters - optional 	:grey_question:")
 frequency_cap = st.number_input("Frequency Cap", min_value=0, value=10)
 
 # Weights for scoring criteria (based on marketing objective)
@@ -232,7 +232,7 @@ output_df = pd.DataFrame(output_table)
 st.text("")
 st.text("")
 st.text("")
-st.write("### Recommended Channel Splits")
+st.write("### Recommended Channel Splits :bar_chart:")
 st.dataframe(output_df, hide_index=True, use_container_width=True)
 st.text("")
 
@@ -322,7 +322,7 @@ st.pyplot(fig2)
 st.text("")
 st.text("")
 st.text("")
-st.write("### Appendix : Channel Scores by Metric")
+st.write("### Appendix : Channel Scores by Metric 	:paperclip:")
 
 #CPMs
 st.text("CPMs by Channel")
