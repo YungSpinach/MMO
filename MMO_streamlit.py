@@ -91,33 +91,6 @@ else:
 
 
 # ====================
-# Metric Rankings - under the bonnet
-# ====================
-
-st.text("")
-
-#CPMs
-st.text("CPMs by Channel")
-st.bar_chart(media_effectiveness_df, x="Media Channel", y="CPM", use_container_width=True)
-
-#Short-Term ROIs
-st.text("Short-Term ROIs by Channel")
-st.bar_chart(media_effectiveness_df, x="Media Channel", y="Short-Term ROI", use_container_width=True)
-
-#Full ROIs
-st.text("Full ROIs by Channel")
-st.bar_chart(media_effectiveness_df, x="Media Channel", y="Full ROI", use_container_width=True)
-
-#Attention
-st.text("Attention by Channel")
-st.bar_chart(media_effectiveness_df, x="Media Channel", y="Attention", use_container_width=True)
-
-#Suitability
-st.text(f"{marketing_objective} by Channel")
-st.bar_chart(media_effectiveness_df, x="Media Channel", y=marketing_objective, use_container_width=True)
-
-
-# ====================
 # Helper Functions
 # ====================
 
@@ -338,3 +311,32 @@ ax.grid(True)
 
 # Display the plot in Streamlit
 st.pyplot(fig2)
+
+
+# ====================
+# Metric Rankings - under the bonnet
+# ====================
+
+st.text("")
+
+#CPMs
+st.text("CPMs by Channel")
+st.bar_chart(media_effectiveness_df, x="Media Channel", y="CPM", use_container_width=True)
+
+col1, col2 = st.columns(2)
+
+# Short-Term ROIs
+col1.text("Short-Term ROIs by Channel")
+col1.bar_chart(media_effectiveness_df, x="Media Channel", y="Short-Term ROI", horizontal=True)
+
+# Full ROIs
+col2.text("Full ROIs by Channel")
+col2.bar_chart(media_effectiveness_df, x="Media Channel", y="Full ROI", uhorizontal=True)
+
+# Attention
+col1.text("Attention by Channel")
+col1.bar_chart(media_effectiveness_df, x="Media Channel", y="Attention", horizontal=True)
+
+# Suitability
+col2.text(f"{marketing_objective} by Channel")
+col2.bar_chart(media_effectiveness_df, x="Media Channel", y=marketing_objective, horizontal=True)
