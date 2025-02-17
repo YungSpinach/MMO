@@ -84,11 +84,12 @@ frequency_cap = st.number_input("Frequency Cap", min_value=0, value=10)
 # Weights for scoring criteria (based on marketing objective)
 st.text("")
 st.text("Adjust custom weights?")
+col1, col2 = st.columns(2)
 weights = {
-    "Short-Term ROI": st.slider("Short-Term ROI", min_value=0.0, max_value=1.0, value=0.1),
-    "Full ROI": st.slider("Full ROI", min_value=0.0, max_value=1.0, value=0.4),
-    "Attention": st.slider("Attention", min_value=0.0, max_value=1.0, value=0.1),
-    "Suitability": st.slider(f"{marketing_objective}", min_value=0.0, max_value=1.0, value=0.4),
+    "Short-Term ROI": col1.slider("Short-Term ROI", min_value=0.0, max_value=1.0, value=0.1),
+    "Full ROI": col1.slider("Full ROI", min_value=0.0, max_value=1.0, value=0.4),
+    "Attention": col2.slider("Attention", min_value=0.0, max_value=1.0, value=0.1),
+    "Suitability": col2.slider(f"{marketing_objective}", min_value=0.0, max_value=1.0, value=0.4),
 }
 
 
