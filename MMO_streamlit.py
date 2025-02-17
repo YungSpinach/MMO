@@ -85,10 +85,10 @@ frequency_cap = st.number_input("Frequency Cap", min_value=0, value=10)
 st.text("")
 st.text("Adjust custom weights?")
 weights = {
-    "Short-Term ROI": st.slider("Short-Term ROI Weight", min_value=0.0, max_value=1.0, value=0.1),
-    "Full ROI": st.slider("Full ROI Weight", min_value=0.0, max_value=1.0, value=0.4),
-    "Attention": st.slider("Attention Weight", min_value=0.0, max_value=1.0, value=0.1),
-    "Suitability": st.slider(f"{marketing_objective} Weight", min_value=0.0, max_value=1.0, value=0.4),
+    "Short-Term ROI": st.slider("Short-Term ROI", min_value=0.0, max_value=1.0, value=0.1),
+    "Full ROI": st.slider("Full ROI", min_value=0.0, max_value=1.0, value=0.4),
+    "Attention": st.slider("Attention", min_value=0.0, max_value=1.0, value=0.1),
+    "Suitability": st.slider(f"{marketing_objective}", min_value=0.0, max_value=1.0, value=0.4),
 }
 
 
@@ -232,7 +232,7 @@ output_df = pd.DataFrame(output_table)
 st.text("")
 st.text("")
 st.text("")
-st.write("### Results")
+st.write("### Recommended Channel Splits")
 st.dataframe(output_df, hide_index=True, use_container_width=True)
 st.text("")
 
@@ -250,7 +250,6 @@ output_df = output_df.sort_values(by="Cover (%)", ascending=False)
 
 # Bar graph for Cover %
 ax1.bar(output_df["Media Channel"], output_df["Cover (%)"], color='orangered', alpha=0.6)
-ax1.set_xlabel("Media Channel")
 ax1.set_ylabel("Cover (%)", fontsize=14, fontweight='bold')
 ax1.tick_params(axis='y')
 
@@ -333,16 +332,16 @@ col1, col2 = st.columns(2)
 
 # Short-Term ROIs
 col1.text("Short-Term ROIs by Channel")
-col1.bar_chart(media_effectiveness_df, x="Media Channel", y="Short-Term ROI", horizontal=True, color="Media Channel")
+col1.bar_chart(media_effectiveness_df, x="Media Channel", y="Short-Term ROI", horizontal=True)
 
 # Full ROIs
 col2.text("Full ROIs by Channel")
-col2.bar_chart(media_effectiveness_df, x="Media Channel", y="Full ROI", horizontal=True, color="Media Channel")
+col2.bar_chart(media_effectiveness_df, x="Media Channel", y="Full ROI", horizontal=True)
 
 # Attention
 col1.text("Attention by Channel")
-col1.bar_chart(media_effectiveness_df, x="Media Channel", y="Attention", horizontal=True, color="Media Channel")
+col1.bar_chart(media_effectiveness_df, x="Media Channel", y="Attention", horizontal=True)
 
 # Suitability
 col2.text(f"{marketing_objective} by Channel")
-col2.bar_chart(media_effectiveness_df, x="Media Channel", y=marketing_objective, horizontal=True, color="Media Channel")
+col2.bar_chart(media_effectiveness_df, x="Media Channel", y=marketing_objective, horizontal=True)
