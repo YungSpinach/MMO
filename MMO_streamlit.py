@@ -318,25 +318,26 @@ st.pyplot(fig2)
 # ====================
 
 st.text("")
+st.write("### Channel Scores by Metric")
 
 #CPMs
 st.text("CPMs by Channel")
-st.bar_chart(media_effectiveness_df, x="Media Channel", y="CPM", use_container_width=True)
+st.bar_chart(media_effectiveness_df, x="Media Channel", y="CPM", use_container_width=True, color="Media Channel")
 
 col1, col2 = st.columns(2)
 
 # Short-Term ROIs
 col1.text("Short-Term ROIs by Channel")
-col1.bar_chart(media_effectiveness_df, x="Media Channel", y="Short-Term ROI", horizontal=True)
+col1.bar_chart(media_effectiveness_df, x="Media Channel", y="Short-Term ROI", horizontal=True, color="Media Channel")
 
 # Full ROIs
 col2.text("Full ROIs by Channel")
-col2.bar_chart(media_effectiveness_df, x="Media Channel", y="Full ROI", horizontal=True)
+col2.bar_chart(media_effectiveness_df, x="Media Channel", y="Full ROI", horizontal=True, color="Media Channel")
 
 # Attention
 col1.text("Attention by Channel")
-col1.bar_chart(media_effectiveness_df, x="Media Channel", y="Attention", horizontal=True)
+col1.bar_chart(media_effectiveness_df, x="Media Channel", y="Attention", horizontal=True, color="Media Channel")
 
 # Suitability
 col2.text(f"{marketing_objective} by Channel")
-col2.bar_chart(media_effectiveness_df, x="Media Channel", y=marketing_objective, horizontal=True)
+col2.bar_chart(media_effectiveness_df, x="Media Channel", y=marketing_objective, horizontal=True, color="Media Channel")
