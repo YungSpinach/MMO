@@ -5,7 +5,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 
 
-st.title("Media Mix Optimiser")
+st.title("Media Mix Optimiser :gear:")
 st.text("")
 st.write("### Input Parameters - required")
 col1, col2 = st.columns(2)
