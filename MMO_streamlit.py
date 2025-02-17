@@ -77,10 +77,12 @@ budget_caps = {channel: 0.3 for channel in cover_curves}  # Max % of total budge
 
 
 st.text("")
+st.text("")
 st.write("### Input Parameters - optional")
 frequency_cap = st.number_input("Frequency Cap", min_value=0, value=10)
 
 # Weights for scoring criteria (based on marketing objective)
+st.text("")
 st.text("Adjust custom weights?")
 weights = {
     "Short-Term ROI": st.slider("Short-Term ROI Weight", min_value=0.0, max_value=1.0, value=0.1),
@@ -229,6 +231,7 @@ output_df = pd.DataFrame(output_table)
 
 st.text("")
 st.text("")
+st.text("")
 st.write("### Results")
 st.dataframe(output_df, hide_index=True, use_container_width=True)
 st.text("")
@@ -318,7 +321,9 @@ st.pyplot(fig2)
 # ====================
 
 st.text("")
-st.write("### Channel Scores by Metric")
+st.text("")
+st.text("")
+st.write("### Appendix : Channel Scores by Metric")
 
 #CPMs
 st.text("CPMs by Channel")
