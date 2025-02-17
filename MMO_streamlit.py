@@ -90,6 +90,32 @@ else:
     raise ValueError("Invalid marketing objective. Choose from: Salience, Unaided Awareness, Aided Awareness, Association, Consideration, Purchase Intent.")
 
 
+# ====================
+# Metric Rankings - under the bonnet
+# ====================
+
+st.text("")
+
+#CPMs
+st.text("CPMs by Channel")
+st.bar_chart(media_effectiveness_df, x="Media Channel", y="CPM", use_container_width=True)
+
+#Short-Term ROIs
+st.text("Short-Term ROIs by Channel")
+st.bar_chart(media_effectiveness_df, x="Media Channel", y="Short-Term ROI", use_container_width=True)
+
+#Full ROIs
+st.text("Full ROIs by Channel")
+st.bar_chart(media_effectiveness_df, x="Media Channel", y="Full ROI", use_container_width=True)
+
+#Attention
+st.text("Attention by Channel")
+st.bar_chart(media_effectiveness_df, x="Media Channel", y="Attention", use_container_width=True)
+
+#Suitability
+st.text(f"{marketing_objective} by Channel")
+st.bar_chart(media_effectiveness_df, x="Media Channel", y=marketing_objective, use_container_width=True)
+
 
 # ====================
 # Helper Functions
@@ -228,6 +254,7 @@ output_df = pd.DataFrame(output_table)
 # Show Results
 # ====================
 
+st.text("")
 st.text("")
 st.write("### Results")
 st.dataframe(output_df, hide_index=True, use_container_width=True)
