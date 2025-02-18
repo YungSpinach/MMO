@@ -293,7 +293,7 @@ ax1.bar(channels, cover_pct, color='orangered', alpha=0.6, label='Cover %')
 ax1.set_xticklabels(channels, rotation=45, ha='right')
 
 # Set y-axis label for Cover %
-ax1.set_ylabel('Cover %')
+ax1.set_ylabel('Cover %', fontsize=14, fontweight='bold')
 ax1.tick_params(axis='y')
 ax1.set_ylim(0, cover_pct.max() + 10)
 # Add data labels to each bar
@@ -306,7 +306,7 @@ avg_frequency = output_df["Avg. Frequency"]
 ax2.plot(channels, avg_frequency, color='mediumpurple', marker='o', markersize=30, alpha=0.8)
 
 # Set y-axis label for Avg. Frequency
-ax2.set_ylabel('Avg. Frequency')
+ax2.set_ylabel('Avg. Frequency', fontsize=14, fontweight='bold')
 ax2.tick_params(axis='y')
 ax2.set_ylim(0.8, avg_frequency.max() + 0.5)
 
