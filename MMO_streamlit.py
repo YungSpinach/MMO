@@ -308,7 +308,7 @@ ax2.plot(channels, avg_frequency, color='mediumpurple', marker='o', markersize=3
 # Set y-axis label for Avg. Frequency
 ax2.set_ylabel('Avg. Frequency')
 ax2.tick_params(axis='y')
-ax2.set_ylim(0.8, avg_frequency.max() + 2)
+ax2.set_ylim(0.8, avg_frequency.max() + 0.5)
 
 # Set chart title
 plt.title("Channel Reach (bars) and Avg. Frequencies (line and dots)", fontsize=20, fontweight='bold')
@@ -322,44 +322,35 @@ st.pyplot(fig)
 # ====================
 
 st.text("")
-
-# Plot Cover % by Investment for each channel
-fig2, ax = plt.subplots(figsize=(12, 6))
+# Plot Cover Curves by Channel
+fig, ax = plt.subplots(figsize=(12, 6))
 
 # Define colors for each channel
 colors = plt.cm.get_cmap('tab10', len(cover_curves))
 
-for idx, (channel, data) in enumerate(cover_curves.items()):
+# Plot cover curves for each channel
+for i, (channel, data) in enumerate(cover_curves.items()):
     investment = data["Media Investment"]
     cover_pct = data["Cover %"]
+    color = colors(i)
     
-    # Plot the cover curve
-    ax.plot(investment, cover_pct, label=channel, color=colors(idx))
+    # Plot the cover curve line
+    ax.plot(investment, cover_pct, label=channel, color=color)
     
-    # Overlay the current budget allocation
-    if allocation[channel] > 0:
-        current_cover_pct = interp1d(investment, cover_pct, fill_value="extrapolate")(allocation[channel])
-        ax.plot(allocation[channel], current_cover_pct, 'o', color=colors(idx), markersize=8)
+    # If the channel has been allocated budget, add a symbol to indicate the current allocated spend level
+    if channel in allocation and allocation[channel] > 0:
+        ax.scatter(allocation[channel], interp1d(investment, cover_pct)(allocation[channel]), color=color, s=100, zorder=5)
 
-# Set x-axis limit
-ax.set_xlim(0, total_budget / 2.5)
+# Set labels and title
+ax.set_xlabel('Media Investment (£)')
+ax.set_ylabel('Cover %')
+ax.set_title('Channel Cover Curves, dots indicate current recommended spend level', fontsize=20, fontweight='bold')
 
-# Set y-axis limit
-ax.set_ylim(0, 60)
-
-# Increase font size and make axis titles bold
-ax.set_xlabel("Investment (£)", fontsize=14, fontweight='bold')
-ax.set_ylabel("Cover %", fontsize=14, fontweight='bold')
-
-# Increase font size and make chart title bold
-ax.set_title("Channel Cover Curves, dots indicate current recommended spend level", fontsize=20, fontweight='bold')
-
-ax.legend()
-ax.grid(True)
+# Add legend
+ax.legend(title='Media Channel', bbox_to_anchor=(1.05, 1), loc='upper left')
 
 # Display the plot in Streamlit
-st.pyplot(fig2)
-
+st.pyplot(fig)
 
 # ====================
 # Metric Rankings - under the bonnet
