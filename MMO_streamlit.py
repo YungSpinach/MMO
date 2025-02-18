@@ -295,6 +295,10 @@ ax1.set_xticklabels(channels, rotation=45, ha='right')
 # Set y-axis label for Cover %
 ax1.set_ylabel('Cover %')
 ax1.tick_params(axis='y')
+ax1.set_ylim(0, cover_pct.max() + 10)
+# Add data labels to each bar
+for i, v in enumerate(cover_pct):
+    ax1.text(i, v + 1, f"{v:.1f}%", color='black', ha='center', va='center')
 
 # Create a secondary y-axis for Avg. Frequency
 ax2 = ax1.twinx()
@@ -304,6 +308,7 @@ ax2.plot(channels, avg_frequency, color='mediumpurple', marker='o', markersize=3
 # Set y-axis label for Avg. Frequency
 ax2.set_ylabel('Avg. Frequency')
 ax2.tick_params(axis='y')
+ax2.set_ylim(0.8)
 
 # Set chart title
 plt.title("Channel Reach and Avg. Frequencies", fontsize=20, fontweight='bold')
