@@ -289,13 +289,18 @@ fig, ax1 = plt.subplots(figsize=(10, 6))
 output_df = output_df.sort_values(by="Cover (%)", ascending=False)
 
 # Bar graph for Cover %
-ax1.bar(output_df["Media Channel"], output_df["Cover (%)"], color='orangered', alpha=0.6)
+bars = ax1.bar(output_df["Media Channel"], output_df["Cover (%)"], color='orangered', alpha=0.6)
 ax1.set_ylabel("Cover (%)", fontsize=14, fontweight='bold')
 ax1.tick_params(axis='y')
 
-# Add data labels
-for i, v in enumerate(output_df["Cover (%)"]):
-    ax1.text(i, v - 5, f"{v}%", ha='center', va='bottom', fontsize=10, fontweight='bold')
+# Add data labels to the base of the bars
+for bar in bars:
+    height = bar.get_height()
+    ax1.annotate(f'{height:.1f}%',
+                 xy=(bar.get_x() + bar.get_width() / 2, height),
+                 xytext=(0, -10),  # 10 points vertical offset
+                 textcoords="offset points",
+                 ha='center', va='bottom', fontsize=10, color='black')
 
 # Line graph for Avg. Frequency
 ax2 = ax1.twinx()
