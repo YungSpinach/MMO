@@ -81,7 +81,7 @@ st.text("")
 st.write("### Input Parameters - optional 	:grey_question:")
 
 col1, col2 = st.columns(2)
-frequency_cap = col1.number_input("Frequency Cap", min_value=0, value=None)
+frequency_cap = col1.number_input("Frequency Cap", min_value=0, value=10)
 max_channels = col2.number_input("Max. Channels", min_value=0, value=None)
 
 excluded_channels = st.multiselect("Channels to exclude", ["Audio", 
