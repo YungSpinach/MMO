@@ -1,15 +1,15 @@
-import numpy as np
-import pandas as pd
-from scipy.interpolate import interp1d
-import streamlit as st
-import matplotlib.pyplot as plt
+import numpy as np # type: ignore
+import pandas as pd # type: ignore
+from scipy.interpolate import interp1d # type: ignore
+import streamlit as st # type: ignore
+import matplotlib.pyplot as plt # type: ignore
 
 
 st.title("Media Mix Optimiser :gear:")
 st.text("")
 st.write("### Input Parameters - required :pencil:")
 col1, col2 = st.columns(2)
-audience_name = col1.selectbox("Audience Name", ["ABC1 Adults", "All Adults", "Women 16-34", "ABC1 Women"])
+audience_name = col1.selectbox("Audience Name", ["ABC1 Adults", "Women 16-34", "ABC1 Women"])
 total_budget = col2.number_input("Total Budget (£)", min_value=0, value=500000)
 marketing_objective = st.selectbox("Marketing Objective", ["Salience", "Unaided Awareness", "Aided Awareness", "Association", "Consideration", "Purchase Intent"])
 
