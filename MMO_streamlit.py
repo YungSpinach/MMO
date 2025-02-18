@@ -81,8 +81,8 @@ st.text("")
 st.write("### Input Parameters - optional 	:grey_question:")
 
 col1, col2 = st.columns(2)
-frequency_cap = col1.number_input("Frequency Cap", min_value=0, value=10)
-max_channels = col2.number_input("Max. Channels", min_value=0, value=7)
+frequency_cap = col1.number_input("Frequency Cap", min_value=0, value=None)
+max_channels = col2.number_input("Max. Channels", min_value=0, value=None)
 
 excluded_channels = st.multiselect("Channels to exclude", ["Audio", 
                                                            "BVOD", 
@@ -254,7 +254,7 @@ for channel, budget in allocation.items():
         output_table.append({
             "Media Channel": channel,
             "Budget Allocation (£)": f"£{budget:,.0f}",
-            "Budget Allocation (%)": f"{(budget / total_budget) * 100:.1f}%",
+            "Budget Allocation (%)": f"{(budget / total_budget) * 100:.0f}%",
             "CPM (£)": f"£{cover_curves[channel]['CPM']:,.0f}",
             "Cover (%)": f"{np.round(cover_pct, 1)}%",
             "Avg. Frequency": np.round(avg_frequency, 1),
@@ -292,15 +292,6 @@ output_df = output_df.sort_values(by="Cover (%)", ascending=False)
 bars = ax1.bar(output_df["Media Channel"], output_df["Cover (%)"], color='orangered', alpha=0.6)
 ax1.set_ylabel("Cover (%)", fontsize=14, fontweight='bold')
 ax1.tick_params(axis='y')
-
-# Add data labels to the base of the bars
-for bar in bars:
-    height = bar.get_height()
-    ax1.annotate(f'{height:.1f}%',
-                 xy=(bar.get_x() + bar.get_width() / 2, height),
-                 xytext=(0, -10),  # 10 points vertical offset
-                 textcoords="offset points",
-                 ha='center', va='bottom', fontsize=10, color='black')
 
 # Line graph for Avg. Frequency
 ax2 = ax1.twinx()
