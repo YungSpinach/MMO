@@ -78,7 +78,7 @@ budget_caps = {channel: 0.4 for channel in cover_curves}  # Max % of total budge
 
 st.text("")
 st.text("")
-st.write("# Input Parameters - optional 	:grey_question:")
+st.write("#### Input Parameters - optional 	:paperclip:")
 
 col1, col2 = st.columns(2)
 frequency_cap = col1.number_input("Frequency Cap", min_value=0, value=10)
