@@ -79,7 +79,24 @@ budget_caps = {channel: 0.3 for channel in cover_curves}  # Max % of total budge
 st.text("")
 st.text("")
 st.write("### Input Parameters - optional 	:grey_question:")
-frequency_cap = st.number_input("Frequency Cap", min_value=0, value=10)
+
+col1, col2 = st.columns(2)
+frequency_cap = col1.number_input("Frequency Cap", min_value=0, value=10)
+max_channels = col2.number_input("Max. Channels", min_value=0, value=7)
+
+excluded_channels = st.multiselect("Channels to exclude", ["Audio", 
+                                                           "BVOD", 
+                                                           "Cinema", 
+                                                           "Generic Search", 
+                                                           "Linear TV", 
+                                                           "Magazines - Print",
+                                                           "Newspapers - Pint",
+                                                           "Online Display",
+                                                           "Online Video",
+                                                           "OOH",
+                                                           "Paid Social"])
+
+st.write("The following channels won't be considered for selection:", excluded_channels)
 
 # Weights for scoring criteria (based on marketing objective)
 st.text("")
@@ -163,39 +180,60 @@ def calculate_score(channel, allocated_budget):
     
     return score, cover_pct, avg_frequency, grps
 
-def allocate_budget(total_budget, budget_caps, frequency_cap):
+def allocate_budget(total_budget, budget_caps, frequency_cap, max_channels=None, excluded_channels=None):
     """Allocate budget across channels iteratively."""
+    # Initialize allocation for each channel to 0
     allocation = {channel: 0 for channel in cover_curves}
     remaining_budget = total_budget
     
+    # If excluded_channels is provided, remove those channels from consideration
+    if excluded_channels:
+        for channel in excluded_channels:
+            if channel in allocation:
+                del allocation[channel]
+    
+    # Track the number of channels with non-zero allocation
+    channels_allocated = 0
+    
+    # Iterate until the entire budget is allocated
     while remaining_budget > 0:
-        best_score = -1
-        best_channel = None
+        best_score = -1  # Initialize the best score to a very low value
+        best_channel = None  # Initialize the best channel to None
         
         # Evaluate each channel
-        for channel in cover_curves:
+        for channel in allocation:
+            # Skip if the channel has reached its budget cap
             if allocation[channel] + 0.05 * total_budget > budget_caps[channel] * total_budget:
-                continue  # Skip if budget cap is reached
+                continue
+            
+            # Skip if the maximum number of channels has been reached
+            if max_channels is not None and channels_allocated >= max_channels and allocation[channel] == 0:
+                continue
             
             # Calculate score for the next 5% allocation
             new_allocation = allocation[channel] + 0.05 * total_budget
             score, cover_pct, avg_frequency, grps = calculate_score(channel, new_allocation)
             
-            # Check frequency constraint
+            # Skip if the frequency exceeds the cap
             if avg_frequency > frequency_cap:
-                continue  # Skip if frequency exceeds cap
+                continue
             
-            # Update best channel
+            # Update the best channel if this channel has a higher score
             if score > best_score:
                 best_score = score
                 best_channel = channel
         
+        # If no valid channel is found, stop the allocation process
         if best_channel is None:
-            break  # No valid allocation left
+            break
         
         # Allocate 5% of the budget to the best channel
         allocation[best_channel] += 0.05 * total_budget
         remaining_budget -= 0.05 * total_budget
+        
+        # Increment the count of allocated channels if this is a new channel
+        if allocation[best_channel] == 0.05 * total_budget:
+            channels_allocated += 1
     
     return allocation
 
@@ -206,7 +244,7 @@ def allocate_budget(total_budget, budget_caps, frequency_cap):
 # ====================
 
 # Allocate budget
-allocation = allocate_budget(total_budget, budget_caps, frequency_cap)
+allocation = allocate_budget(total_budget, budget_caps, frequency_cap, max_channels, excluded_channels)
 
 # Generate output table
 output_table = []
@@ -216,8 +254,9 @@ for channel, budget in allocation.items():
         output_table.append({
             "Media Channel": channel,
             "Budget Allocation (£)": f"£{budget:,.0f}",
+            "Budget Allocation (%)": f"{(budget / total_budget) * 100:.1f}%",
             "CPM (£)": f"£{cover_curves[channel]['CPM']:,.0f}",
-            "Cover (%)": np.round(cover_pct, 1),
+            "Cover (%)": f"{np.round(cover_pct, 1)}%",
             "Avg. Frequency": np.round(avg_frequency, 1),
             "GRPs": np.round(grps, 1),
         })
