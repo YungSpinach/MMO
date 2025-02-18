@@ -292,6 +292,7 @@ output_df = output_df.sort_values(by="Cover (%)", ascending=False)
 bars = ax1.bar(output_df["Media Channel"], output_df["Cover (%)"], color='orangered', alpha=0.6)
 ax1.set_ylabel("Cover (%)", fontsize=14, fontweight='bold')
 ax1.tick_params(axis='y')
+ax1.set_ylim(0, 100)  # Set y-axis limit to a minimum of 0 and maximum of 100
 
 # Line graph for Avg. Frequency
 ax2 = ax1.twinx()
