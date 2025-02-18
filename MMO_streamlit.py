@@ -96,8 +96,6 @@ excluded_channels = st.multiselect("Channels to exclude", ["Audio",
                                                            "OOH",
                                                            "Paid Social"])
 
-st.write("The following channels won't be considered for selection:", excluded_channels)
-
 # Weights for scoring criteria (based on marketing objective)
 st.text("")
 st.text("Adjust custom weights?")
@@ -283,26 +281,32 @@ st.text("")
 # R+F Graph
 # ====================
 
-fig, ax1 = plt.subplots(figsize=(10, 6))
+# Plot Cover % and Avg. Frequency by Channel
+fig, ax1 = plt.subplots(figsize=(12, 6))
 
-# Sort the output dataframe by Cover (%) in descending order
-output_df = output_df.sort_values(by="Cover (%)", ascending=False)
+# Bar chart for Cover %
+channels = output_df["Media Channel"]
+cover_pct = output_df["Cover (%)"].str.rstrip('%').astype(float)
+ax1.bar(channels, cover_pct, color='orangered', alpha=0.6, label='Cover %')
 
-# Bar graph for Cover %
-ax1.bar(output_df["Media Channel"], output_df["Cover (%)"], color='orangered', alpha=0.6)
-ax1.set_ylabel("Cover (%)", fontsize=14, fontweight='bold')
+# Set x-axis labels
+ax1.set_xticklabels(channels, rotation=45, ha='right')
+
+# Set y-axis label for Cover %
+ax1.set_ylabel('Cover %')
 ax1.tick_params(axis='y')
 
-# Line graph for Avg. Frequency
+# Create a secondary y-axis for Avg. Frequency
 ax2 = ax1.twinx()
-ax2.plot(output_df["Media Channel"], output_df["Avg. Frequency"], color='mediumpurple', marker='o', markersize=30, alpha=0.8)
-ax2.set_ylabel("Avg. Frequency", fontsize=14, fontweight='bold')
-ax2.tick_params(axis='y')
-ax2.set_ylim(0.8)
+avg_frequency = output_df["Avg. Frequency"]
+ax2.plot(channels, avg_frequency, color='mediumpurple', marker='o', markersize=30, alpha=0.8)
 
-# Title and layout adjustments
+# Set y-axis label for Avg. Frequency
+ax2.set_ylabel('Avg. Frequency')
+ax2.tick_params(axis='y')
+
+# Set chart title
 plt.title("Channel Reach and Avg. Frequencies", fontsize=20, fontweight='bold')
-fig.tight_layout()
 
 # Display the plot in Streamlit
 st.pyplot(fig)
