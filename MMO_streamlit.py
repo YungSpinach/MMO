@@ -323,7 +323,7 @@ st.pyplot(fig)
 
 st.text("")
 # Plot Cover Curves by Channel
-fig, ax = plt.subplots(figsize=(12, 6))
+fig2, ax = plt.subplots(figsize=(12, 6))
 
 # Define colors for each channel
 colors = plt.cm.get_cmap('tab10', len(cover_curves))
@@ -341,16 +341,20 @@ for i, (channel, data) in enumerate(cover_curves.items()):
     if channel in allocation and allocation[channel] > 0:
         ax.scatter(allocation[channel], interp1d(investment, cover_pct)(allocation[channel]), color=color, s=100, zorder=5)
 
-# Set labels and title
-ax.set_xlabel('Media Investment (£)')
-ax.set_ylabel('Cover %')
+# Titles
+ax.set_xlabel("Investment (£)", fontsize=14, fontweight='bold')
+ax.set_ylabel("Cover %", fontsize=14, fontweight='bold')
 ax.set_title('Channel Cover Curves, dots indicate current recommended spend level', fontsize=20, fontweight='bold')
 
+
+# Set x-axis limit
+ax.set_xlim(0, total_budget / 2.5)
+
 # Add legend
-ax.legend(title='Media Channel', bbox_to_anchor=(1.05, 1), loc='upper left')
+ax.legend()
 
 # Display the plot in Streamlit
-st.pyplot(fig)
+st.pyplot(fig2)
 
 # ====================
 # Metric Rankings - under the bonnet
