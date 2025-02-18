@@ -339,7 +339,10 @@ for i, (channel, data) in enumerate(cover_curves.items()):
     
     # If the channel has been allocated budget, add a symbol to indicate the current allocated spend level
     if channel in allocation and allocation[channel] > 0:
-        ax.scatter(allocation[channel], interp1d(investment, cover_pct)(allocation[channel]), color=color, s=100, zorder=5)
+        allocated_investment = allocation[channel]
+        min_investment = min(investment)
+        if allocated_investment >= min_investment:
+            ax.scatter(allocated_investment, interp1d(investment, cover_pct, fill_value="extrapolate")(allocated_investment), color=color, s=100, zorder=5)
 
 # Titles
 ax.set_xlabel("Investment (£)", fontsize=14, fontweight='bold')
