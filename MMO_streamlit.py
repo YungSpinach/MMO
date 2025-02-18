@@ -73,12 +73,12 @@ for _, row in media_effectiveness_df.iterrows():
 
 # Constraints
 # frequency_cap = 10  # Max frequency per channel
-budget_caps = {channel: 0.3 for channel in cover_curves}  # Max % of total budget per channel (example: 20%)
+budget_caps = {channel: 0.4 for channel in cover_curves}  # Max % of total budget per channel (example: 20%)
 
 
 st.text("")
 st.text("")
-st.write("### Input Parameters - optional 	:grey_question:")
+st.write("# Input Parameters - optional 	:grey_question:")
 
 col1, col2 = st.columns(2)
 frequency_cap = col1.number_input("Frequency Cap", min_value=0, value=10)
@@ -101,10 +101,10 @@ st.text("")
 st.text("Adjust custom weights?")
 col1, col2 = st.columns(2)
 weights = {
-    "Short-Term ROI": col1.slider("Short-Term ROI", min_value=0.0, max_value=1.0, value=0.1),
-    "Full ROI": col1.slider("Full ROI", min_value=0.0, max_value=1.0, value=0.4),
-    "Attention": col2.slider("Attention", min_value=0.0, max_value=1.0, value=0.1),
-    "Suitability": col2.slider(f"{marketing_objective}", min_value=0.0, max_value=1.0, value=0.4),
+    "Short-Term ROI :pound:": col1.slider("Short-Term ROI", min_value=0.0, max_value=1.0, value=0.1),
+    "Full ROI 	:moneybag:": col1.slider("Full ROI", min_value=0.0, max_value=1.0, value=0.4),
+    "Attention :eyes:": col2.slider("Attention", min_value=0.0, max_value=1.0, value=0.1),
+    "Suitability :goal_net:": col2.slider(f"{marketing_objective}", min_value=0.0, max_value=1.0, value=0.4),
 }
 
 
