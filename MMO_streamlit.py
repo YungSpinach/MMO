@@ -308,10 +308,10 @@ ax2.plot(channels, avg_frequency, color='mediumpurple', marker='o', markersize=3
 # Set y-axis label for Avg. Frequency
 ax2.set_ylabel('Avg. Frequency')
 ax2.tick_params(axis='y')
-ax2.set_ylim(0.8)
+ax2.set_ylim(0.8, avg_frequency.max() + 2)
 
 # Set chart title
-plt.title("Channel Reach and Avg. Frequencies", fontsize=20, fontweight='bold')
+plt.title("Channel Reach (bars) and Avg. Frequencies (line and dots)", fontsize=20, fontweight='bold')
 
 # Display the plot in Streamlit
 st.pyplot(fig)
