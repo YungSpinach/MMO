@@ -1,4 +1,4 @@
-Audience Name,Media Channel,Short-Term ROI,Full ROI,Attention,CPM,Salience,Unaided Awareness,Aided Awareness,Association,Consideration,Purchase Intent
+Audience Name,Media Channel,Full ROI,Short-Term ROI,Attention,CPM,Salience,Unaided Awareness,Aided Awareness,Association,Consideration,Purchase Intent
 ABC1 Adults,Linear TV,5.94,1.82,6439,30,1.4,1.1,1.3,1.3,2,1.3
 ABC1 Adults,Generic Search,3.52,2.29,500,10,0.7,0.8,0.9,1,1.3,1.6
 ABC1 Adults,Paid Social,3.2,1.62,700,5,1.3,0.8,1.2,1.4,1.4,1.2
@@ -21,3 +21,25 @@ All Adults,Online Video,3.86,1.76,2403,12,1.5,1.3,1.5,1.4,1.9,1.3
 All Adults,OOH,2.78,1.19,1594,15,1,1,1,1,1,1
 All Adults,Online Display,2.34,1.5,200,6,1.4,1.5,1.3,1.2,2.1,1.4
 All Adults,Cinema,2.56,1.19,12878,50,1.4,1.1,1.3,1.3,2,1.3
+Women 16-34,Linear TV,5.94,1.82,6439,55,1.4,1.1,1.3,1.3,2,1.3
+Women 16-34,Generic Search,3.52,2.29,500,10,0.7,0.8,0.9,1,1.3,1.6
+Women 16-34,Paid Social,3.2,1.62,700,5,1.3,0.8,1.2,1.4,1.4,1.2
+Women 16-34,BVOD,4.25,1.66,6439,40,1.4,1.1,1.3,1.3,2,1.3
+Women 16-34,Audio,4.98,2.47,1610,15,1.4,0.8,1.5,1.5,1.6,1.2
+Women 16-34,Newspapers - Print,6.36,2.74,1610,18,1.6,1.2,1.2,1.5,2.2,1.4
+Women 16-34,Magazines - Print,6.36,2.74,1610,30,1.6,1.2,1.2,1.5,2.2,1.4
+Women 16-34,Online Video,3.86,1.76,2403,15,1.5,1.3,1.5,1.4,1.9,1.3
+Women 16-34,OOH,2.78,1.19,1594,20,1,1,1,1,1,1
+Women 16-34,Online Display,2.34,1.5,200,8,1.4,1.5,1.3,1.2,2.1,1.4
+Women 16-34,Cinema,2.56,1.19,12878,70,1.4,1.1,1.3,1.3,2,1.3
+ABC1 Women,Linear TV,5.94,1.82,6439,30,1.4,1.1,1.3,1.3,2,1.3
+ABC1 Women,Generic Search,3.52,2.29,500,10,0.7,0.8,0.9,1,1.3,1.6
+ABC1 Women,Paid Social,3.2,1.62,700,5.5,1.3,0.8,1.2,1.4,1.4,1.2
+ABC1 Women,BVOD,4.25,1.66,6439,44,1.4,1.1,1.3,1.3,2,1.3
+ABC1 Women,Audio,4.98,2.47,1610,17,1.4,0.8,1.5,1.5,1.6,1.2
+ABC1 Women,Newspapers - Print,6.36,2.74,1610,20,1.6,1.2,1.2,1.5,2.2,1.4
+ABC1 Women,Magazines - Print,6.36,2.74,1610,30,1.6,1.2,1.2,1.5,2.2,1.4
+ABC1 Women,Online Video,3.86,1.76,2403,15,1.5,1.3,1.5,1.4,1.9,1.3
+ABC1 Women,OOH,2.78,1.19,1594,22,1,1,1,1,1,1
+ABC1 Women,Online Display,2.34,1.5,200,8,1.4,1.5,1.3,1.2,2.1,1.4
+ABC1 Women,Cinema,2.56,1.19,12878,75,1.4,1.1,1.3,1.3,2,1.3
