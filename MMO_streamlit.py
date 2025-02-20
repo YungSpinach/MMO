@@ -4,7 +4,8 @@ from scipy.interpolate import interp1d # type: ignore
 import streamlit as st # type: ignore
 import matplotlib.pyplot as plt # type: ignore
 
-
+st.image("https://images.squarespace-cdn.com/content/5c9e3048523958515c382443/2129c340-d177-48e6-8b14-3c8b01a94ec7/CreamLogo-EMAILSIGNATURE.png?content-type=image%2Fpng", width=100)
+st.text("")
 st.title("Media Mix Optimiser :gear:")
 st.text("")
 st.write("### Input Parameters - required :pencil:")
