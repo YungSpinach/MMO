@@ -310,8 +310,8 @@ st.text("")
 
 col1, col2, col3 = st.columns(3)
 col1.metric("Total Budget", f"£{total_budget:,.0f}", border=True)
-col2.metric("Est. Revenue", f"£{int(output_df['Estimated Revenue (£)'].str.replace('£', '').str.replace(',', '').astype(float).sum()):,.0f}", border=True)
-col3.metric("Est. ROAS", f"{np.round(output_df['Estimated Revenue (£)'].str.replace('£', '').str.replace(',', '').astype(float).sum() / total_budget, 2)}", border=True)
+col2.metric("Est. Revenue", f"£{int(output_df['Est. Revenue (£)'].str.replace('£', '').str.replace(',', '').astype(float).sum()):,.0f}", border=True)
+col3.metric("Est. ROAS", f"{np.round(output_df['Est. Revenue (£)'].str.replace('£', '').str.replace(',', '').astype(float).sum() / total_budget, 2)}", border=True)
 
 
 st.text("")
