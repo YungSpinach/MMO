@@ -300,7 +300,7 @@ st.text("")
 st.text("")
 st.text("")
 st.write("### Recommended Channel Splits :bar_chart:")
-st.dataframe(output_df, hide_index=True, use_container_width=False)
+st.dataframe(output_df, hide_index=True)
 st.text("")
 
 #Exporting the table
