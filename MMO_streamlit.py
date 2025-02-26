@@ -286,8 +286,8 @@ for channel, budget in allocation.items():
             "Cover (%)": f"{np.round(cover_pct, 1)}%",
             "Avg. Frequency": np.round(avg_frequency, 1),
             "GRPs": np.round(grps, 1),
-            "ROAS": np.round(full_roas, 2),
-            "Estimated Revenue (£)": f"£{estimated_revenue:,.0f}",
+            "Est. ROAS": np.round(full_roas, 2),
+            "Est. Revenue (£)": f"£{estimated_revenue:,.0f}",
         })
 
 output_df = pd.DataFrame(output_table)
@@ -300,7 +300,7 @@ st.text("")
 st.text("")
 st.text("")
 st.write("### Recommended Channel Splits :bar_chart:")
-st.dataframe(output_df, hide_index=True, use_container_width=True)
+st.dataframe(output_df, hide_index=True, use_container_width=False)
 st.text("")
 
 #Exporting the table
