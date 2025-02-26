@@ -310,7 +310,7 @@ st.text("")
 
 col1, col2 = st.columns(2)
 col1.metric("Total Budget", f"£{total_budget:,.0f}")
-col2.metric("Total Revenue", f"£{output_df['Estimated Revenue (£)'].sum():,.0f}")
+col2.metric("Total Revenue", f"£{estimated_revenue:,.0f}")
 
 st.text("")
 
