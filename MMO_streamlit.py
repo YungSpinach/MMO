@@ -308,9 +308,11 @@ st.text("")
 
 # Show topline callouts for 
 
-col1, col2 = st.columns(2)
-col1.metric("Total Budget", f"£{total_budget:,.0f}")
-col2.metric("Total Revenue", f"£{int(output_df['Estimated Revenue (£)'].str.replace('£', '').str.replace(',', '').astype(float).sum()):,.0f}")
+col1, col2, col3 = st.columns(3)
+col1.metric("Total Budget", f"£{total_budget:,.0f}", border=True)
+col2.metric("Est. Revenue", f"£{int(output_df['Estimated Revenue (£)'].str.replace('£', '').str.replace(',', '').astype(float).sum()):,.0f}", border=True)
+col3.metric("Est. ROAS", f"{np.round(output_df['Estimated Revenue (£)'].str.replace('£', '').str.replace(',', '').astype(float).sum() / total_budget, 2)}", border=True)
+
 
 st.text("")
 
