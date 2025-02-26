@@ -4,6 +4,32 @@ from scipy.interpolate import interp1d # type: ignore
 import streamlit as st # type: ignore
 import matplotlib.pyplot as plt # type: ignore
 
+# FEATURES TO ADD
+#----------------------------------------------
+# Carbon scores
+# Estimated revenue (channel budget * ROAS)
+# Custom CPMs
+#----------------------------------------------
+# Lumen attention scores - better measure?
+# Mandatory channels
+# Minimum / Maximum spends for mandatory channels 
+# Pareto optimisation (multi-objective)
+# Changes score calculation - not optimise towards explicit: 
+#  - Reach %
+#  - ROAS
+#  - Attention
+#  - Suitability
+#  - Would need to factor in diminishing returns to all of these
+# Then evaluate 1000s of model combinations
+# Explicitly factor in time-frames, e.g. “this is a 2 week campaign”
+#---------------------------------------------- 
+# Custom cover curves from Meta / YouTube / TikTok?
+# See the difference between last and most recent media plans? 
+# Econometric response curves for clients that have them  
+# Factoring in de-duplication of reach? 
+# - Overlap %s of ad channels from touchpoints?
+
+
 st.image("https://images.squarespace-cdn.com/content/5c9e3048523958515c382443/2129c340-d177-48e6-8b14-3c8b01a94ec7/CreamLogo-EMAILSIGNATURE.png?content-type=image%2Fpng", width=100)
 st.text("")
 st.title("Media Mix Optimiser :gear:")
@@ -250,6 +276,8 @@ output_table = []
 for channel, budget in allocation.items():
     if budget > 0:  # Only include channels with non-zero budget allocation
         score, cover_pct, avg_frequency, grps = calculate_score(channel, budget)
+        full_roas = media_effectiveness[channel]["Full ROI"]
+        estimated_revenue = budget * full_roas
         output_table.append({
             "Media Channel": channel,
             "Budget Allocation (£)": f"£{budget:,.0f}",
@@ -258,11 +286,11 @@ for channel, budget in allocation.items():
             "Cover (%)": f"{np.round(cover_pct, 1)}%",
             "Avg. Frequency": np.round(avg_frequency, 1),
             "GRPs": np.round(grps, 1),
+            "ROAS": np.round(full_roas, 2),
+            "Estimated Revenue (£)": f"£{estimated_revenue:,.0f}",
         })
 
 output_df = pd.DataFrame(output_table)
-
-
 
 # ====================
 # Show Results
@@ -277,6 +305,14 @@ st.text("")
 
 #Exporting the table
 # import csv
+
+# Show topline callouts for 
+
+col1, col2 = st.columns(2)
+col1.metric("Total Budget", f"£{total_budget:,.0f}")
+col2.metric("Total Revenue", f"£{output_df['Estimated Revenue (£)'].sum():,.0f}")
+
+st.text("")
 
 # ====================
 # R+F Graph
