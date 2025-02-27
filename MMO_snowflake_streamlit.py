@@ -3,7 +3,7 @@ import pandas as pd # type: ignore
 from scipy.interpolate import interp1d # type: ignore
 import streamlit as st # type: ignore
 import matplotlib.pyplot as plt # type: ignore
-import snowflake.connector
+# import snowflake.connector
 
 # FEATURES TO ADD
 #----------------------------------------------
@@ -284,7 +284,7 @@ output_table = []
 for channel, budget in allocation.items():
     if budget > 0:  # Only include channels with non-zero budget allocation
         score, cover_pct, avg_frequency, grps = calculate_score(channel, budget)
-        full_roas = media_effectiveness[channel]["Full ROI"]
+        full_roas = media_effectiveness[channel]["FULL_ROI"]
         estimated_revenue = budget * full_roas
         output_table.append({
             "Media Channel": channel,
@@ -417,22 +417,22 @@ st.write("#### Appendix : Channel Scores by Metric 	:paperclip:")
 
 #CPMs
 st.text("CPMs by Channel")
-st.bar_chart(media_effectiveness_df, x="Media Channel", y="CPM", use_container_width=True, color="Media Channel")
+st.bar_chart(media_effectiveness_df, x="MEDIA_CHANNEL", y="CPM", use_container_width=True, color="Media Channel")
 
 col1, col2 = st.columns(2)
 
 # Short-Term ROIs
 col1.text("Short-Term ROIs by Channel")
-col1.bar_chart(media_effectiveness_df, x="Media Channel", y="Short-Term ROI", horizontal=True)
+col1.bar_chart(media_effectiveness_df, x="MEDIA_CHANNEL", y="SHORT_TERM_ROI", horizontal=True)
 
 # Full ROIs
 col2.text("Full ROIs by Channel")
-col2.bar_chart(media_effectiveness_df, x="Media Channel", y="Full ROI", horizontal=True)
+col2.bar_chart(media_effectiveness_df, x="MEDIA_CHANNEL", y="FULL_ROI", horizontal=True)
 
 # Attention
 col1.text("Attention by Channel")
-col1.bar_chart(media_effectiveness_df, x="Media Channel", y="Attention", horizontal=True)
+col1.bar_chart(media_effectiveness_df, x="MEDIA_CHANNEL", y="ATTENTION", horizontal=True)
 
 # Suitability
 col2.text(f"{marketing_objective} by Channel")
-col2.bar_chart(media_effectiveness_df, x="Media Channel", y=marketing_objective, horizontal=True)
+col2.bar_chart(media_effectiveness_df, x="MEDIA_CHANNEL", y=marketing_objective, horizontal=True)
